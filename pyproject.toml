@@ -10,8 +10,38 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.scripts]
-dqn = "dqn:main"
+main = "dqn.main:main"
 
 [build-system]
 requires = ["uv_build>=0.12.4,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "I",       # isort
+    "B",       # bugbear
+    "UP",      # pyupgrade
+    "N",       # pep8-naming
+    "SIM",     # simplify
+    "C4",      # comprehensions
+    "NPY",     # numpy
+    "RUF",     # ruff-specific
+]
+ignore = [
+    "N803", "N806",  # RL/math names like Q, X, S are fine as arguments and locals
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.10",
+]
