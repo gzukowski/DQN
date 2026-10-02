@@ -14,7 +14,7 @@ class Action(IntEnum):
 ACCELERATION = {
     Action.ENGINES_OFF: 0.0,
     Action.HOVER: G,
-    Action.FULL_THROTTLE: 6 * G,
+    Action.FULL_THROTTLE: 10 * G,
 }
 
 
@@ -32,7 +32,6 @@ class Drone:
         self.touched_down = False
         self.out_of_bounds = False
         self.validate()
-        print("Drone initialized with height:", self.height, "m, vertical velocity:", self.vertical_velocity, "m/s")
 
     def validate(self) -> None:
         if self.height < 0.0 or self.height > MAX_HEIGHT:
