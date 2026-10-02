@@ -1,9 +1,7 @@
 from dataclasses import dataclass
 from enum import IntEnum
 
-G: float = 9.81  # m/s^2
-MAX_HEIGHT: float = 100.0  # m
-MAX_SPEED: float = 20.0  # m/s
+from dqn.simulation.constants import MAX_HEIGHT, MAX_SPEED, G
 
 
 class Action(IntEnum):
@@ -16,7 +14,7 @@ class Action(IntEnum):
 ACCELERATION = {
     Action.ENGINES_OFF: 0.0,
     Action.HOVER: G,
-    Action.FULL_THROTTLE: 2 * G,
+    Action.FULL_THROTTLE: 6 * G,
 }
 
 
@@ -33,9 +31,9 @@ class Drone:
         self.vertical_velocity = vertical_velocity
         self.touched_down = False
         self.out_of_bounds = False
-        self.validate_init()
+        self.validate()
 
-    def validate_init(self) -> None:
+    def validate(self) -> None:
         if self.height < 0.0 or self.height > MAX_HEIGHT:
             raise ValueError(f"Initial height {self.height} is out of bounds (0, {MAX_HEIGHT})")
         if abs(self.vertical_velocity) > MAX_SPEED:
