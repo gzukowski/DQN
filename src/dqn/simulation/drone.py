@@ -32,6 +32,7 @@ class Drone:
         self.touched_down = False
         self.out_of_bounds = False
         self.validate()
+        print("Drone initialized with height:", self.height, "m, vertical velocity:", self.vertical_velocity, "m/s")
 
     def validate(self) -> None:
         if self.height < 0.0 or self.height > MAX_HEIGHT:
