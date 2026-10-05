@@ -1,16 +1,55 @@
 # DQN
 
+Teaching a drone to land softly with reinforcement learning: tabular Q-learning first, then a Deep Q-Network (DQN)
+and Double DQN (DDQN).
+
+## Environment
+
+A 1D vertical landing simulation (`src/dqn/simulation`, `src/dqn/environment`).
+
+- **State:** height (0–100 m) and vertical velocity (±20 m/s)
+- **Actions:** `FREE_FALL` (no thrust), `CANCEL_GRAVITY` (thrust = g, keeps current velocity), `BRAKE` (thrust = 3g)
+- **Start:** height U[50, 100] m, velocity U[−5, 0] m/s
+- **Goal:** touch down slower than 2 m/s
+- **Rewards:** +100 soft landing, −100 crash, −200 out of bounds (above 100 m), −1 per step;
+  episodes are cut off after 1000 steps (timeout)
+
+## Setup
+
+```
+uv sync
+```
+
+Development:
+
 ```
 uv run ruff check --fix .
 uv run ruff format .
-
 ```
 
+## Stage 1: Tabular Q-learning
 
-Q learn results:
+Height and velocity are each split into 20 equal bins, giving a Q-table of shape `(20, 20, 3)`.
+Training uses ε-greedy exploration (ε decays linearly from 1.0 to 0.05 over the first 80% of episodes),
+α = 0.1, γ = 0.99.
+
 ```
-uv run train-q
+uv run train-q                  # train 20k episodes, save runs/q_table.npy, evaluate
+uv run train-q --episodes 5000  # shorter run
+uv run train-q --watch          # load the Q-table and render one episode
 ```
+
+### Results
+
+Evaluation after 20k training episodes (1000 episodes, greedy policy, unseen seed):
+
+| landed | crashed | out of bounds | timeout | mean impact velocity |
+|---|---|---|---|---|
+| 99.2% | 0.0% | 0.0% | 0.8% | 0.82 m/s |
+
+<details>
+<summary>Training log</summary>
+
 ```
 episode   1000  eps 0.941  avg reward   -252.9  landed   0.0%  crashed   0.2%  out_of_bounds  99.8%  timeout   0.0%
 episode   2000  eps 0.881  avg reward   -263.7  landed   0.1%  crashed   1.1%  out_of_bounds  98.8%  timeout   0.0%
@@ -33,9 +72,16 @@ episode  18000  eps 0.050  avg reward   -515.4  landed  38.2%  crashed  12.5%  o
 episode  19000  eps 0.050  avg reward   -270.0  landed  49.9%  crashed  37.7%  out_of_bounds   1.9%  timeout  10.5%
 episode  20000  eps 0.050  avg reward   -177.2  landed  65.4%  crashed  29.4%  out_of_bounds   0.0%  timeout   5.2%
 training took 262.4 s
-saved Q-table to C:\Users\gzukowski\DQN\runs\q_table.npy
 evaluation (1000 episodes): landed  99.2%  crashed   0.0%  out_of_bounds   0.0%  timeout   0.8%
 mean impact velocity: 0.82 m/s
-
-
 ```
+
+</details>
+
+## Stage 2: DQN
+
+_TODO_
+
+## Stage 3: Double DQN
+
+_TODO_
