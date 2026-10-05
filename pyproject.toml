@@ -13,6 +13,7 @@ dependencies = [
 
 [project.scripts]
 main = "dqn.main:main"
+train-q = "dqn.train_q:main"
 
 [build-system]
 requires = ["uv_build>=0.12.4,<0.13.0"]

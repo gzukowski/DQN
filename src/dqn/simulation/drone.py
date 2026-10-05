@@ -14,7 +14,7 @@ class Action(IntEnum):
 ACCELERATION = {
     Action.ENGINES_OFF: 0.0,
     Action.HOVER: G,
-    Action.FULL_THROTTLE: 10 * G,
+    Action.FULL_THROTTLE: 3 * G,
 }
 
 

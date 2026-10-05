@@ -1,10 +1,15 @@
 import time
 
+from dqn.agent.tabular_q import HEIGHT_EDGES, VELOCITY_EDGES
 from dqn.environment.landing_env import LandingEnv
 from dqn.simulation.drone import Action
 
 
 def main(realtime: bool = False) -> None:
+
+    print(HEIGHT_EDGES)
+    print(40*"=")
+    print(VELOCITY_EDGES)
 
     time_step = 0.01
 
