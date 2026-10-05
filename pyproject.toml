@@ -1,7 +1,7 @@
 [project]
 name = "dqn"
 version = "0.1.0"
-description = "Add your description here"
+description = "Teaching a drone to land softly with reinforcement learning."
 readme = "README.md"
 authors = [
     { name = "gzukowski" }
