@@ -10,9 +10,9 @@ DRONE_W = 40
 DRONE_H = 12
 
 FLAME_LENGTH = {
-    Action.ENGINES_OFF: 0,
-    Action.HOVER: 10,
-    Action.FULL_THROTTLE: 25,
+    Action.FREE_FALL: 0,
+    Action.CANCEL_GRAVITY: 10,
+    Action.BRAKE: 25,
 }
 
 

@@ -5,16 +5,16 @@ from dqn.simulation.constants import MAX_HEIGHT, MAX_SPEED, G
 
 
 class Action(IntEnum):
-    ENGINES_OFF = 0
-    HOVER = 1
-    FULL_THROTTLE = 2
+    FREE_FALL = 0
+    CANCEL_GRAVITY = 1
+    BRAKE = 2
 
 
 # upward acceleration (m/s^2)
 ACCELERATION = {
-    Action.ENGINES_OFF: 0.0,
-    Action.HOVER: G,
-    Action.FULL_THROTTLE: 3 * G,
+    Action.FREE_FALL: 0.0,
+    Action.CANCEL_GRAVITY: G,
+    Action.BRAKE: 3 * G,
 }
 
 

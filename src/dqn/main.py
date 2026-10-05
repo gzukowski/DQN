@@ -37,7 +37,7 @@ def main(realtime: bool = False) -> None:
         done = truncated = False
         while not (done or truncated) and not (renderer and renderer.closed):
             # soft landing
-            action = Action.FULL_THROTTLE if drone.height < 15 and drone.vertical_velocity < -3 else Action.ENGINES_OFF
+            action = Action.BRAKE if drone.height < 15 and drone.vertical_velocity < -3 else Action.FREE_FALL
             _obs, reward, done, truncated, info = landing_env.step(action)
             episode_reward += reward
 
